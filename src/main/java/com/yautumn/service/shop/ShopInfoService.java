@@ -2,11 +2,8 @@ package com.yautumn.service.shop;
 
 import com.yautumn.common.entity.ShopInfo;
 import com.yautumn.common.utils.PageBeanUtil;
-import com.yautumn.param.request.PageParam;
-import com.yautumn.param.request.ShopParam;
+import com.yautumn.param.request.shop.ShopParam;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface ShopInfoService {

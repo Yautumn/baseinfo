@@ -1,4 +1,4 @@
-package com.yautumn.dao.shop;
+package com.yautumn.dao.company;
 
 import com.yautumn.common.entity.CompanyInfo;
 

@@ -1,16 +1,19 @@
 package com.yautumn.service.shop.impl;
 
 import com.yautumn.common.entity.ShopCommodityInformation;
+import com.yautumn.common.utils.BatchUtils;
 import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopCommodityInformationMapper;
-import com.yautumn.param.request.PageParam;
-import com.yautumn.param.request.ShopCommodityParam;
+import com.yautumn.param.request.common.PageParam;
+import com.yautumn.param.request.shop.ShopCommodityParam;
 import com.yautumn.service.shop.ShopCommodityInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +21,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
 
     @Autowired
     private ShopCommodityInformationMapper shopCommodityInformationMapper;
+
+    @Autowired
+    private BatchUtils batchUtils;
 
     /**
      * 插入商品信息
@@ -109,6 +115,23 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     public int countCommoditys() {
         int num = shopCommodityInformationMapper.selectCount();
         return num;
+    }
+
+    @Override
+    @Transactional
+    public String batchInsert(List<ShopCommodityParam> shopCommodityParams) {
+        List<ShopCommodityInformation> shopCommodityInformations = new ArrayList<ShopCommodityInformation>();
+        shopCommodityParams.forEach(shopCommodityParam -> {
+            ShopCommodityInformation shopCommodityInformation = new ShopCommodityInformation();
+            BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
+            shopCommodityInformations.add(shopCommodityInformation);
+        });
+        int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.batchInsert((List<ShopCommodityInformation>) item));
+        if (i == 1){
+            return "操作成功";
+        }else {
+            return "商户信息插入失败";
+        }
     }
 
 

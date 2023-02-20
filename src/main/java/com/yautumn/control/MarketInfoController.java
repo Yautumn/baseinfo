@@ -3,7 +3,7 @@ package com.yautumn.control;
 import com.yautumn.common.entity.MarketInfo;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
-import com.yautumn.param.request.MarketParam;
+import com.yautumn.param.request.market.MarketParam;
 import com.yautumn.service.market.MarketInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

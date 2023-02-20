@@ -2,7 +2,7 @@ package com.yautumn.service.market;
 
 import com.yautumn.common.entity.MarketInfo;
 import com.yautumn.common.utils.PageBeanUtil;
-import com.yautumn.param.request.MarketParam;
+import com.yautumn.param.request.market.MarketParam;
 import org.springframework.stereotype.Service;
 
 @Service
