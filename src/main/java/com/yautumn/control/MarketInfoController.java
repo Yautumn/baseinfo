@@ -7,8 +7,7 @@ import com.yautumn.param.request.market.MarketParam;
 import com.yautumn.service.market.MarketInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/market")
@@ -17,31 +16,31 @@ public class MarketInfoController {
     @Autowired
     private MarketInfoService marketInfoService;
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public ResultUtil insert(@RequestBody MarketParam marketParam){
         String msg = marketInfoService.insert(marketParam);
         return ResultUtil.success(msg);
     }
 
-    @RequestMapping("/del")
+    @DeleteMapping("/del")
     public ResultUtil del(@RequestBody MarketParam marketParam){
         String msg = marketInfoService.delete(marketParam);
         return ResultUtil.success(msg);
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public ResultUtil update(@RequestBody MarketParam marketParam){
         String msg = marketInfoService.update(marketParam);
         return ResultUtil.success(msg);
     }
 
-    @RequestMapping("/find/id")
+    @GetMapping("/find/id")
     public ResultUtil findById(@RequestBody MarketParam marketParam){
         MarketInfo marketInfo = marketInfoService.findById(marketParam);
         return ResultUtil.success(marketInfo);
     }
 
-    @RequestMapping("/find/all")
+    @GetMapping("/find/all")
     public PageBeanUtil findAll(@RequestBody MarketParam marketParam){
         PageBeanUtil<MarketInfo> marketInfos = marketInfoService.findMarketAll(marketParam);
         return marketInfos;
