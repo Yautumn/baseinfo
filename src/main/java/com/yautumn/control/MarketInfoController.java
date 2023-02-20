@@ -4,7 +4,7 @@ import com.yautumn.common.entity.MarketInfo;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.MarketParam;
-import com.yautumn.service.MarketInfoService;
+import com.yautumn.service.market.MarketInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

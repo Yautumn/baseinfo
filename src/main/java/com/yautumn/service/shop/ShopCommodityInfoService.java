@@ -1,4 +1,4 @@
-package com.yautumn.service;
+package com.yautumn.service.shop;
 
 import com.yautumn.common.entity.ShopCommodityInformation;
 import com.yautumn.common.utils.PageBeanUtil;

@@ -4,7 +4,7 @@ import com.yautumn.common.entity.ShopCommodityInformation;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.ShopCommodityParam;
-import com.yautumn.service.ShopCommodityInfoService;
+import com.yautumn.service.shop.ShopCommodityInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("commodity")
 public class ShopCommodityController {
+
     @Autowired
     private ShopCommodityInfoService shopCommodityInfoService;
 

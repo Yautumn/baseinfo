@@ -1,4 +1,4 @@
-package com.yautumn.service.impl;
+package com.yautumn.service.shop.impl;
 
 import com.yautumn.common.entity.ShopCommodityInformation;
 import com.yautumn.common.utils.GenerateUtil;
@@ -6,12 +6,14 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopCommodityInformationMapper;
 import com.yautumn.param.request.PageParam;
 import com.yautumn.param.request.ShopCommodityParam;
-import com.yautumn.service.ShopCommodityInfoService;
+import com.yautumn.service.shop.ShopCommodityInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
 
     @Autowired

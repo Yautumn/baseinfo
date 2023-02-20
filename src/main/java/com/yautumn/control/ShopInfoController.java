@@ -4,7 +4,7 @@ import com.yautumn.common.entity.ShopInfo;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.ShopParam;
-import com.yautumn.service.ShopInfoService;
+import com.yautumn.service.shop.ShopInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;

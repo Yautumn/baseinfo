@@ -1,4 +1,4 @@
-package com.yautumn.service;
+package com.yautumn.service.market;
 
 import com.yautumn.common.entity.MarketInfo;
 import com.yautumn.common.utils.PageBeanUtil;

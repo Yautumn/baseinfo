@@ -1,4 +1,4 @@
-package com.yautumn.service.impl;
+package com.yautumn.service.market.impl;
 
 
 import com.yautumn.common.entity.MarketInfo;
@@ -9,7 +9,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.market.MarketInfoMapper;
 import com.yautumn.param.request.MarketParam;
 import com.yautumn.param.request.PageParam;
-import com.yautumn.service.MarketInfoService;
+import com.yautumn.service.market.MarketInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

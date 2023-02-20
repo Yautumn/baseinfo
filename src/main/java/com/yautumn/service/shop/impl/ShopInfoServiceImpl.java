@@ -1,4 +1,4 @@
-package com.yautumn.service.impl;
+package com.yautumn.service.shop.impl;
 
 import com.yautumn.common.entity.ShopInfo;
 import com.yautumn.common.utils.GenerateUtil;
@@ -6,7 +6,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopInfoMapper;
 import com.yautumn.param.request.PageParam;
 import com.yautumn.param.request.ShopParam;
-import com.yautumn.service.ShopInfoService;
+import com.yautumn.service.shop.ShopInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
