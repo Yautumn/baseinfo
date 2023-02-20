@@ -1,4 +1,4 @@
-package com.yautumn.param.request;
+package com.yautumn.param.request.common;
 
 import lombok.Getter;
 import lombok.Setter;

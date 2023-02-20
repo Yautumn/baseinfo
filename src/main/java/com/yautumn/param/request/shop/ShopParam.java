@@ -1,5 +1,6 @@
-package com.yautumn.param.request;
+package com.yautumn.param.request.shop;
 
+import com.yautumn.param.request.common.PageParam;
 import lombok.Getter;
 import lombok.Setter;
 

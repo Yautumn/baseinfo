@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopCommodityInformationMapper">
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.ShopCommodityInformation">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
-    <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="product_type" jdbcType="VARCHAR" property="productType" />
-    <result column="product_specific" jdbcType="VARCHAR" property="productSpecific" />
-    <result column="product_unit" jdbcType="VARCHAR" property="productUnit" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-    <result column="updatetime" jdbcType="VARCHAR" property="updatetime" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="shop_id" jdbcType="VARCHAR" property="shopId"/>
+    <result column="product_name" jdbcType="VARCHAR" property="productName"/>
+    <result column="product_type" jdbcType="VARCHAR" property="productType"/>
+    <result column="product_specific" jdbcType="VARCHAR" property="productSpecific"/>
+    <result column="product_unit" jdbcType="VARCHAR" property="productUnit"/>
+    <result column="status" jdbcType="VARCHAR" property="status"/>
+    <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+    <result column="updatetime" jdbcType="VARCHAR" property="updatetime"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, shop_id, product_name, product_type, product_specific, product_unit, status, 
@@ -19,23 +19,24 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from shop_commodity_information
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from shop_commodity_information
+    delete
+    from shop_commodity_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.ShopCommodityInformation">
-    insert into shop_commodity_information (id, shop_id, product_name, 
-      product_type, product_specific, product_unit, 
-      status, createtime, updatetime, 
-      remark)
-    values (#{id,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
-      #{productType,jdbcType=VARCHAR}, #{productSpecific,jdbcType=VARCHAR}, #{productUnit,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+    insert into shop_commodity_information (id, shop_id, product_name,
+                                            product_type, product_specific, product_unit,
+                                            status, createtime, updatetime,
+                                            remark)
+    values (#{id,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR},
+            #{productType,jdbcType=VARCHAR}, #{productSpecific,jdbcType=VARCHAR}, #{productUnit,jdbcType=VARCHAR},
+            #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR},
+            #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yautumn.common.entity.ShopCommodityInformation">
     insert into shop_commodity_information
@@ -139,25 +140,40 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.ShopCommodityInformation">
     update shop_commodity_information
-    set shop_id = #{shopId,jdbcType=VARCHAR},
-      product_name = #{productName,jdbcType=VARCHAR},
-      product_type = #{productType,jdbcType=VARCHAR},
-      product_specific = #{productSpecific,jdbcType=VARCHAR},
-      product_unit = #{productUnit,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+    set shop_id          = #{shopId,jdbcType=VARCHAR},
+        product_name     = #{productName,jdbcType=VARCHAR},
+        product_type     = #{productType,jdbcType=VARCHAR},
+        product_specific = #{productSpecific,jdbcType=VARCHAR},
+        product_unit     = #{productUnit,jdbcType=VARCHAR},
+        status           = #{status,jdbcType=VARCHAR},
+        createtime       = #{createtime,jdbcType=VARCHAR},
+        updatetime       = #{updatetime,jdbcType=VARCHAR},
+        remark           = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="findCommodityAll" resultType="com.yautumn.common.entity.ShopCommodityInformation">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List"/>
     from shop_commodity_information
     limit #{start},#{end}
   </select>
 
+  <insert id="batchInsert">
+    insert into shop_commodity_information (id, shop_id, product_name,
+                                            product_type, product_specific, product_unit,
+                                            status, createtime, updatetime,
+                                            remark)
+    values 
+        <foreach item="item" collection="list" index="index" separator=",">
+           (#{item.id,jdbcType=VARCHAR}, #{item.shopId,jdbcType=VARCHAR}, #{item.productName,jdbcType=VARCHAR},
+            #{item.productType,jdbcType=VARCHAR}, #{item.productSpecific,jdbcType=VARCHAR}, #{item.productUnit,jdbcType=VARCHAR},
+            #{item.status,jdbcType=VARCHAR}, #{item.createtime,jdbcType=VARCHAR}, #{item.updatetime,jdbcType=VARCHAR},
+            #{item.remark,jdbcType=VARCHAR})
+        </foreach>
+  </insert>
+
   <select id="selectCount" resultType="java.lang.Integer">
-    select count(1) from shop_commodity_information
+    select count(1)
+    from shop_commodity_information
   </select>
 </mapper>

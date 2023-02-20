@@ -1,7 +1,7 @@
 package com.yautumn.dao.market;
 
 import com.yautumn.common.entity.MarketInfo;
-import com.yautumn.param.request.MarketParam;
+import com.yautumn.param.request.market.MarketParam;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
