@@ -10,7 +10,6 @@ import java.util.List;
 @Setter
 public class PageBeanUtil<T> {
     private Integer currentPage;//当前页
-    private Integer startIndex;//起始页
     private Integer pageSize;//每页显示数据数量
     private Integer totalCount;//数据总数
     private Integer totalPage;//最大页数
@@ -28,25 +27,12 @@ public class PageBeanUtil<T> {
         }else {
             this.totalPage = totalCount / pageSize + 1;
         }
-        this.startIndex = (currentPage-1)*pageSize;
-
-        this.start = 1;
-        this.end = 5;
-
-        if (totalPage <= 5){
-            this.end = totalPage;
+        if (currentPage < totalPage){
+            this.start = (currentPage-1)*pageSize;
+            this.end = start + 19;
         }else {
-            this.start = currentPage - 2;
-            this.end = currentPage + 2;
-
-            if (start < 0){
-                this.start = 1;
-                this.end = 5;
-            }
-            if(end > totalPage){
-                this.end = totalPage;
-                this.start = totalPage - 5;
-            }
+            this.start = (currentPage-1)*pageSize;
+            this.end = totalCount;
         }
 
     }

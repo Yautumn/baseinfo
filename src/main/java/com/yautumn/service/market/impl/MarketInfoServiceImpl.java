@@ -1,7 +1,7 @@
 package com.yautumn.service.market.impl;
 
 
-import com.yautumn.common.entity.MarketInfo;
+import com.yautumn.common.entity.market.MarketInfo;
 import com.yautumn.common.utils.DateUtils;
 import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.JedisUtils;
@@ -42,7 +42,6 @@ public class MarketInfoServiceImpl implements MarketInfoService {
         marketInfo.setId(id);
         Date createTime = new Date();
         marketInfo.setCreatetime(DateUtils.dateTimeToString(createTime));
-        marketInfo.setUpdatetime(DateUtils.dateTimeToString(createTime));
         int i = marketInfoMapper.insert(marketInfo);
         if (i == 1){
             return "操作成功";
@@ -53,11 +52,12 @@ public class MarketInfoServiceImpl implements MarketInfoService {
 
     @Override
     public String update(MarketParam marketParam) {
-        if (this.isNull(marketParam)){
+        if (this.isNull(marketParam.getId())){
             return "市场信息不存在";
         }
-        MarketInfo marketInfo = this.findById(marketParam);
+        MarketInfo marketInfo = this.findById(marketParam.getId());
         BeanUtils.copyProperties(marketParam, marketInfo);
+        marketInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = marketInfoMapper.updateByPrimaryKey(marketInfo);
         if (i == 1){
             return "操作成功";
@@ -67,11 +67,14 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     }
 
     @Override
-    public String delete(MarketParam marketParam) {
-        if (this.isNull(marketParam)){
+    public String delete(String marketId) {
+        if (this.isNull(marketId)){
             return "市场信息不存在";
         }
-        int i = marketInfoMapper.deleteByPrimaryKey(marketParam.getId());
+        MarketInfo marketInfo = marketInfoMapper.selectByPrimaryKey(marketId);
+        marketInfo.setStatus("0");
+        marketInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
+        int i = marketInfoMapper.updateByPrimaryKey(marketInfo);
         if (i == 1) {
             return "操作成功";
         } else {
@@ -80,32 +83,31 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     }
 
     @Override
-    public MarketInfo findById(MarketParam marketParam) {
-        MarketInfo marketInfo = marketInfoMapper.selectByPrimaryKey(marketParam.getId());
+    public MarketInfo findById(String marketId) {
+        MarketInfo marketInfo = marketInfoMapper.selectByPrimaryKey(marketId);
         return marketInfo;
     }
 
     @Override
-    public PageBeanUtil findMarketAll(MarketParam marketParam) {
-        PageParam pageParam = marketParam.getPageParam();
+    public PageBeanUtil findMarketAll(PageParam pageParam) {
         int currentPage = pageParam.getCurrentPage();
         int pageSize = pageParam.getPageSize();
         int totalPage = pageParam.getTotalPage();
         PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalPage);
-        List<MarketInfo> marketInfos = marketInfoMapper.findAll(pageBeanUtil.getStartIndex(),pageSize);
+        List<MarketInfo> marketInfos = marketInfoMapper.findAll(pageBeanUtil.getStart(),pageBeanUtil.getEnd());
         pageBeanUtil.setList(marketInfos);
         return pageBeanUtil;
     }
 
     @Override
-    public int countMarket(MarketParam marketParam) {
-        int num = marketInfoMapper.selectCount(marketParam);
+    public int countMarket() {
+        int num = marketInfoMapper.selectCount();
         return num;
     }
 
-    private boolean isNull(MarketParam marketParam){
+    private boolean isNull(String marketId){
         boolean flag = false;
-        MarketInfo marketInfo = this.findById(marketParam);
+        MarketInfo marketInfo = this.findById(marketId);
         if (null == marketInfo){
             flag = true;
         }

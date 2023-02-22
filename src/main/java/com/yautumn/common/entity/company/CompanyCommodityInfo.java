@@ -1,4 +1,4 @@
-package com.yautumn.common.entity;
+package com.yautumn.common.entity.company;
 
 import lombok.Data;
 

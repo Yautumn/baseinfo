@@ -1,12 +1,14 @@
 package com.yautumn.control;
 
-import com.yautumn.common.entity.ShopInfo;
+import com.yautumn.common.entity.shop.ShopInfo;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
+import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopParam;
 import com.yautumn.service.shop.ShopInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +27,14 @@ public class ShopInfoController {
         return ResultUtil.success(message);
     }
 
+    @ApiOperation(value = "根据商户id删除商户信息方法")
     @DeleteMapping("/del/id")
-    public ResultUtil delShopInfo(@RequestBody ShopParam shopParam) {
-        String msg = shopInfoService.delShopByID(shopParam);
+    public ResultUtil delShopInfo(@RequestParam @ApiParam(value = "商户id" , defaultValue = "a54754b885054bc3ba8fed163abc6c04") String shopId) {
+        String msg = shopInfoService.delShopByID(shopId);
         return ResultUtil.success(msg);
     }
 
+    @ApiOperation(value = "更新单个商户信息方法")
     @PostMapping("/update")
     public ResultUtil updateShop(@RequestBody ShopParam shopParam) {
 
@@ -38,9 +42,10 @@ public class ShopInfoController {
         return ResultUtil.success(msg);
     }
 
+    @ApiOperation(value = "根据id查询商户信息方法")
     @GetMapping("/find/id")
-    public ResultUtil findShopById(@RequestBody ShopParam shopParam) {
-        ShopInfo shopInfo = shopInfoService.findShopById(shopParam);
+    public ResultUtil findShopById(@RequestParam @ApiParam(value = "商户id", defaultValue = "a54754b885054bc3ba8fed163abc6c04") String shopId) {
+        ShopInfo shopInfo = shopInfoService.findShopById(shopId);
         if (null != shopInfo) {
             return ResultUtil.success(shopInfo);
         } else {
@@ -48,6 +53,7 @@ public class ShopInfoController {
         }
     }
 
+    @ApiOperation(value = "获取商户总数方法")
     @GetMapping("/count")
     public ResultUtil countShops() {
         int count = 0;
@@ -55,11 +61,11 @@ public class ShopInfoController {
         return ResultUtil.success(count);
     }
 
-    @GetMapping("/find/all")
-    public ResultUtil findShopAll(@RequestBody ShopParam shopParam) {
-        PageBeanUtil pageBeanUtil = shopInfoService.findShopAll(shopParam);
+    @ApiOperation(value = "分页查询所有商户信息方法")
+    @PostMapping("/find/all")
+    public ResultUtil findShopAll(@RequestBody PageParam pageParam) {
+        PageBeanUtil pageBeanUtil = shopInfoService.findShopAll(pageParam);
         return ResultUtil.success(pageBeanUtil);
     }
-
 
 }

@@ -1,7 +1,9 @@
 package com.yautumn.dao.shop;
 
-import com.yautumn.common.entity.ShopFactoryInfo;
+import com.yautumn.common.entity.shop.ShopFactoryInfo;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ShopFactoryInfoMapper {
     int deleteByPrimaryKey(String id);
 

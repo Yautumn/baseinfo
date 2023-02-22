@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopAgentInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.ShopAgentInfo">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopAgentInfo">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
     <result column="agent_phone" jdbcType="VARCHAR" property="agentPhone" />
@@ -26,7 +26,7 @@
     delete from shop_agent_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yautumn.common.entity.ShopAgentInfo">
+  <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
     insert into shop_agent_information (id, agent_name, agent_phone, 
       agent_mobile, agent_city, agent_addr, 
       agent_logistics, status, remark
@@ -36,7 +36,7 @@
       #{agentLogistics,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yautumn.common.entity.ShopAgentInfo">
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
     insert into shop_agent_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -97,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.ShopAgentInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
     update shop_agent_information
     <set>
       <if test="agentName != null">
@@ -127,7 +127,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.ShopAgentInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
     update shop_agent_information
     set agent_name = #{agentName,jdbcType=VARCHAR},
       agent_phone = #{agentPhone,jdbcType=VARCHAR},

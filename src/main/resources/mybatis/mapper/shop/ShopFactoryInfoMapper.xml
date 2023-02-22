@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopFactoryInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.ShopFactoryInfo">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopFactoryInfo">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
     <result column="factory_name" jdbcType="VARCHAR" property="factoryName" />
@@ -29,7 +29,7 @@
     delete from shop_factory_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yautumn.common.entity.ShopFactoryInfo">
+  <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
     insert into shop_factory_information (id, shop_id, factory_name, 
       factory_addr, factory_phone1, factory_phone2, 
       factory_mobile1, factory_mobile2, status, 
@@ -41,7 +41,7 @@
       #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yautumn.common.entity.ShopFactoryInfo">
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
     insert into shop_factory_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.ShopFactoryInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
     update shop_factory_information
     <set>
       <if test="shopId != null">
@@ -159,7 +159,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.ShopFactoryInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
     update shop_factory_information
     set shop_id = #{shopId,jdbcType=VARCHAR},
       factory_name = #{factoryName,jdbcType=VARCHAR},

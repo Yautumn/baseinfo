@@ -1,4 +1,4 @@
-package com.yautumn.common.entity;
+package com.yautumn.common.entity.shop;
 
 import lombok.Data;
 
@@ -7,6 +7,8 @@ public class ShopCommodityInformation {
     private String id;
 
     private String shopId;
+
+    private String productBrand;
 
     private String productName;
 

@@ -1,7 +1,8 @@
 package com.yautumn.service.shop.impl;
 
-import com.yautumn.common.entity.ShopCommodityInformation;
+import com.yautumn.common.entity.shop.ShopCommodityInformation;
 import com.yautumn.common.utils.BatchUtils;
+import com.yautumn.common.utils.DateUtils;
 import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopCommodityInformationMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,6 +38,7 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         String id = GenerateUtil.getUUID();
         BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
         shopCommodityInformation.setId(id);
+        shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.insert(shopCommodityInformation);
         if (i == 1){
             return "操作成功";
@@ -46,15 +49,15 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
 
     /**
      * 根据id删除商品信息
-     * @param shopCommodityParam
+     * @param shopCommodityId
      * @return
      */
     @Override
-    public String delShopCommodityByID(ShopCommodityParam shopCommodityParam) {
-        if(this.isNull(shopCommodityParam)){
+    public String delShopCommodityByID(String shopCommodityId) {
+        if (isNull(shopCommodityId)) {
             return "商品信息不存在";
         }
-        int i = shopCommodityInformationMapper.deleteByPrimaryKey(shopCommodityParam.getId());
+        int i = shopCommodityInformationMapper.deleteByPrimaryKey(shopCommodityId);
         if (i == 1) {
             return "操作成功";
         } else {
@@ -69,11 +72,12 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
      */
     @Override
     public String updateCommdityByID(ShopCommodityParam shopCommodityParam) {
-        if(this.isNull(shopCommodityParam)){
+        if(this.isNull(shopCommodityParam.getId())){
             return "商品信息不存在";
         }
-        ShopCommodityInformation shopCommodityInformation = new ShopCommodityInformation();
+        ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityParam.getId());
         BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
+        shopCommodityInformation.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.updateByPrimaryKey(shopCommodityInformation);
         if (i == 1){
             return "操作成功";
@@ -84,17 +88,16 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
 
     /**
      * 分页查询商品信息
-     * @param shopCommodityParam
+     * @param pageParam
      * @return
      */
     @Override
-    public PageBeanUtil findCommdityAll(ShopCommodityParam shopCommodityParam) {
-        PageParam pageParam = shopCommodityParam.getPageParam();
+    public PageBeanUtil findCommdityAll(PageParam pageParam) {
         int currentPage = pageParam.getCurrentPage();
         int pageSize = pageParam.getPageSize();
         int totalPage = pageParam.getTotalPage();
         PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalPage);
-        List<ShopCommodityInformation> shopCommodityInformations = shopCommodityInformationMapper.findCommodityAll(pageBeanUtil.getStartIndex(),pageSize);
+        List<ShopCommodityInformation> shopCommodityInformations = shopCommodityInformationMapper.findCommodityAll(pageBeanUtil.getStart(),pageBeanUtil.getEnd());
         pageBeanUtil.setList(shopCommodityInformations);
         return pageBeanUtil;
     }
@@ -102,12 +105,12 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
 
     /**
      * 根据id查询商品信息
-     * @param shopCommodityParam
+     * @param shopCommodityId
      * @return
      */
     @Override
-    public ShopCommodityInformation findShopCommodityByID(ShopCommodityParam shopCommodityParam) {
-        ShopCommodityInformation shopCommodityInformation = shopCommodityInformationMapper.selectByPrimaryKey(shopCommodityParam.getId());
+    public ShopCommodityInformation findShopCommodityByID(String shopCommodityId) {
+        ShopCommodityInformation shopCommodityInformation = shopCommodityInformationMapper.selectByPrimaryKey(shopCommodityId);
         return shopCommodityInformation;
     }
 
@@ -124,9 +127,11 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         shopCommodityParams.forEach(shopCommodityParam -> {
             ShopCommodityInformation shopCommodityInformation = new ShopCommodityInformation();
             BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
+            shopCommodityInformation.setId(GenerateUtil.getUUID());
+            shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
             shopCommodityInformations.add(shopCommodityInformation);
         });
-        int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.batchInsert((List<ShopCommodityInformation>) item));
+        int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.insert(item));
         if (i == 1){
             return "操作成功";
         }else {
@@ -135,9 +140,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     }
 
 
-    private boolean isNull(ShopCommodityParam shopCommodityParam){
+    private boolean isNull(String shopCommodityId){
         boolean flag = false;
-        ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityParam);
+        ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityId);
         if (null != shopCommodityInformation){
             flag = true;
         }

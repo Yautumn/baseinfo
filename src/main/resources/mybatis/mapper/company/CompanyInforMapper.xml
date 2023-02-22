@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.company.CompanyInforMapper">
-  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.CompanyInfo">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.company.CompanyInfo">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="address" jdbcType="VARCHAR" property="address" />
@@ -32,7 +32,7 @@
     delete from company_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yautumn.common.entity.CompanyInfo">
+  <insert id="insert" parameterType="com.yautumn.common.entity.company.CompanyInfo">
     insert into company_information (id, name, address, 
       reg_addr, business_scope, reg_time, 
       legal_person, phone, mobile, 
@@ -46,7 +46,7 @@
       #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yautumn.common.entity.CompanyInfo">
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.company.CompanyInfo">
     insert into company_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -143,7 +143,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.CompanyInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.company.CompanyInfo">
     update company_information
     <set>
       <if test="name != null">
@@ -191,7 +191,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.CompanyInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.company.CompanyInfo">
     update company_information
     set name = #{name,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},

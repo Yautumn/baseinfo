@@ -44,12 +44,13 @@ public class BatchUtils {
                 i++;
             }
             batchSqlSession.commit(!TransactionSynchronizationManager.isSynchronizationActive());
+            return 1;
         } catch (Exception e) {
             batchSqlSession.rollback();
+            throw new RuntimeException(e);
         } finally {
             batchSqlSession.close();
         }
-        return i-1;
     }
 
 }

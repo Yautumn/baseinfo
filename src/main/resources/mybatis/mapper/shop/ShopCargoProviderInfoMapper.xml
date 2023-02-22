@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopCargoProviderInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.ShopCargoProviderInfo">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopCargoProviderInfo">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
     <result column="provider_name" jdbcType="VARCHAR" property="providerName" />
@@ -27,7 +27,7 @@
     delete from shop_cargo_provider_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yautumn.common.entity.ShopCargoProviderInfo">
+  <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopCargoProviderInfo">
     insert into shop_cargo_provider_information (id, shop_id, provider_name, 
       house_number, provider_market_id, provider_addr, 
       status, createtime, updatetime, 
@@ -37,7 +37,7 @@
       #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yautumn.common.entity.ShopCargoProviderInfo">
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.shop.ShopCargoProviderInfo">
     insert into shop_cargo_provider_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -104,7 +104,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.ShopCargoProviderInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.shop.ShopCargoProviderInfo">
     update shop_cargo_provider_information
     <set>
       <if test="shopId != null">
@@ -137,7 +137,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.ShopCargoProviderInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopCargoProviderInfo">
     update shop_cargo_provider_information
     set shop_id = #{shopId,jdbcType=VARCHAR},
       provider_name = #{providerName,jdbcType=VARCHAR},

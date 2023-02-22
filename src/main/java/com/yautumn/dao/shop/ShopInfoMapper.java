@@ -1,9 +1,11 @@
 package com.yautumn.dao.shop;
 
-import com.yautumn.common.entity.ShopInfo;
+import com.yautumn.common.entity.shop.ShopInfo;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface ShopInfoMapper {
     int deleteByPrimaryKey(String id);
 
@@ -19,5 +21,5 @@ public interface ShopInfoMapper {
 
     int selectCount();
 
-    List<ShopInfo> findShopAll(Integer startIndex, int pageSize);
+    List<ShopInfo> findShopAll(Integer start, int end);
 }

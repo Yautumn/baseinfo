@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.ShopInfo">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopInfo">
     <id column="id" jdbcType="VARCHAR" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="alias" jdbcType="VARCHAR" property="alias"/>
@@ -16,39 +16,39 @@
     <result column="mobile2" jdbcType="VARCHAR" property="mobile2"/>
     <result column="status" jdbcType="VARCHAR" property="status"/>
     <result column="remark" jdbcType="VARCHAR" property="remark"/>
-    <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
-    <result column="updatedatetime" jdbcType="TIMESTAMP" property="updatedatetime"/>
+    <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+    <result column="updatetime" jdbcType="VARCHAR" property="updatetime"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, name, alias, market_id, house_number, addr, tag, keeper, phone1, phone2, mobile1, 
-    mobile2, status, remark, createtime, updatedatetime
+    mobile2, status, remark, createtime, updatetime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List"/>
     from shop_information
-    where id = #{id,jdbcType=VARCHAR}
+    where status = 1 and id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete
     from shop_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yautumn.common.entity.ShopInfo">
+  <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopInfo">
     insert into shop_information (id, name, alias,
                                   market_id, house_number, addr,
                                   tag, keeper, phone1,
                                   phone2, mobile1, mobile2,
                                   status, remark, createtime,
-                                  updatedatetime)
+                                  updatetime)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR},
             #{marketId,jdbcType=VARCHAR}, #{houseNumber,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR},
             #{tag,jdbcType=VARCHAR}, #{keeper,jdbcType=VARCHAR}, #{phone1,jdbcType=VARCHAR},
             #{phone2,jdbcType=VARCHAR}, #{mobile1,jdbcType=VARCHAR}, #{mobile2,jdbcType=VARCHAR},
-            #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
-            #{updatedatetime,jdbcType=TIMESTAMP})
+            #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR},
+            #{updatetime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yautumn.common.entity.ShopInfo">
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.shop.ShopInfo">
     insert into shop_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -96,8 +96,8 @@
       <if test="createtime != null">
         createtime,
       </if>
-      <if test="updatedatetime != null">
-        updatedatetime,
+      <if test="updatetime != null">
+        updatetime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -144,14 +144,14 @@
         #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
+        #{createtime,jdbcType=VARCHAR},
       </if>
-      <if test="updatedatetime != null">
-        #{updatedatetime,jdbcType=TIMESTAMP},
+      <if test="updatetime != null">
+        #{updatedatetime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.ShopInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.shop.ShopInfo">
     update shop_information
     <set>
       <if test="name != null">
@@ -194,15 +194,15 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
+        createtime = #{createtime,jdbcType=VARCHAR},
       </if>
-      <if test="updatedatetime != null">
-        updatedatetime = #{updatedatetime,jdbcType=TIMESTAMP},
+      <if test="updatetime != null">
+        updatedatetime = #{updatedatetime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.ShopInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopInfo">
     update shop_information
     set name           = #{name,jdbcType=VARCHAR},
         alias          = #{alias,jdbcType=VARCHAR},
@@ -217,18 +217,20 @@
         mobile2        = #{mobile2,jdbcType=VARCHAR},
         status         = #{status,jdbcType=VARCHAR},
         remark         = #{remark,jdbcType=VARCHAR},
-        createtime     = #{createtime,jdbcType=TIMESTAMP},
-        updatedatetime = #{updatedatetime,jdbcType=TIMESTAMP}
+        createtime     = #{createtime,jdbcType=VARCHAR},
+        updatetime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectCount" resultType="java.lang.Integer">
     select count(1)
     from shop_information
+    where status = 1
   </select>
-  <select id="findShopAll" resultType="com.yautumn.common.entity.ShopInfo">
+  <select id="findShopAll" resultType="com.yautumn.common.entity.shop.ShopInfo">
     select
     <include refid="Base_Column_List"/>
     from shop_information
+    where status = 1
     limit #{start},#{end}
   </select>
 </mapper>

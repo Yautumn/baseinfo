@@ -1,6 +1,7 @@
 package com.yautumn.service.shop.impl;
 
-import com.yautumn.common.entity.ShopInfo;
+import com.yautumn.common.entity.shop.ShopInfo;
+import com.yautumn.common.utils.DateUtils;
 import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopInfoMapper;
@@ -13,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +36,7 @@ public class ShopInfoServiceImpl implements ShopInfoService {
         String id = GenerateUtil.getUUID();
         BeanUtils.copyProperties(shopParam,shopInfo);
         shopInfo.setId(id);
+        shopInfo.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.insert(shopInfo);
         if (i == 1){
             return "操作成功";
@@ -44,15 +47,17 @@ public class ShopInfoServiceImpl implements ShopInfoService {
 
     /**
      * 根据id删除商户信息
-     * @param shopParam
-     * @return
+     * @param shopId
      */
     @Override
-    public String delShopByID(ShopParam shopParam) {
-        if (this.isNull(shopParam)) {
+    public String delShopByID(String shopId) {
+        if (isNull(shopId)) {
             return "商户信息不存在";
         }
-        int i = shopInfoMapper.deleteByPrimaryKey(shopParam.getId());
+        ShopInfo shopInfo = this.findShopById(shopId);
+        shopInfo.setStatus("0");
+        shopInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
+        int i = shopInfoMapper.updateByPrimaryKey(shopInfo);
         if (i == 1) {
             return "操作成功";
         } else {
@@ -67,11 +72,12 @@ public class ShopInfoServiceImpl implements ShopInfoService {
      */
     @Override
     public String updateShop(ShopParam shopParam) {
-        if (this.isNull(shopParam)){
+        if (this.isNull(shopParam.getId())){
             return "商户信息不存在";
         }
-        ShopInfo shopInfoNew = new ShopInfo();
+        ShopInfo shopInfoNew = this.findShopById(shopParam.getId());
         BeanUtils.copyProperties(shopParam,shopInfoNew);
+        shopInfoNew.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.updateByPrimaryKey(shopInfoNew);
         if (i == 1){
             return "操作成功";
@@ -82,28 +88,26 @@ public class ShopInfoServiceImpl implements ShopInfoService {
 
     /**
      * 根据id查询商户信息
-     * @param shopParam
+     * @param shopId
      * @return
      */
     @Override
-    public ShopInfo findShopById(ShopParam shopParam) {
-        ShopInfo shopInfo = shopInfoMapper.selectByPrimaryKey(shopParam.getId());
-        return shopInfo;
+    public ShopInfo findShopById(String shopId) {
+        return shopInfoMapper.selectByPrimaryKey(shopId);
     }
 
     /**
      * 分页查询数据
-     * @param shopParam
+     * @param pageParam
      * @return
      */
     @Override
-    public PageBeanUtil findShopAll(ShopParam shopParam) {
-        PageParam pageParam = shopParam.getPageParam();
+    public PageBeanUtil findShopAll(PageParam pageParam) {
         int currentPage = pageParam.getCurrentPage();
         int pageSize = pageParam.getPageSize();
         int totalPage = pageParam.getTotalPage();
         PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalPage);
-        List<ShopInfo> shopInfos = shopInfoMapper.findShopAll(pageBeanUtil.getStartIndex(),pageSize);
+        List<ShopInfo> shopInfos = shopInfoMapper.findShopAll(pageBeanUtil.getStart(),pageBeanUtil.getEnd());
         pageBeanUtil.setList(shopInfos);
         return pageBeanUtil;
     }
@@ -118,9 +122,9 @@ public class ShopInfoServiceImpl implements ShopInfoService {
         return num;
     }
 
-    private boolean isNull(ShopParam shopParam){
+    private boolean isNull(String shopId){
         boolean flag = false;
-        ShopInfo shopInfo = this.findShopById(shopParam);
+        ShopInfo shopInfo = this.findShopById(shopId);
         if (null == shopInfo){
             flag = true;
         }

@@ -1,7 +1,9 @@
 package com.yautumn.dao.shop;
 
-import com.yautumn.common.entity.ShopCargoGoodsInfo;
+import com.yautumn.common.entity.shop.ShopCargoGoodsInfo;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ShopCargoGoodsInfoMapper {
     int deleteByPrimaryKey(String id);
 

@@ -1,6 +1,6 @@
 package com.yautumn.dao.company;
 
-import com.yautumn.common.entity.CompanyCommodityInfo;
+import com.yautumn.common.entity.company.CompanyCommodityInfo;
 
 public interface CompanyCommodityInfoMapper {
     int deleteByPrimaryKey(String id);

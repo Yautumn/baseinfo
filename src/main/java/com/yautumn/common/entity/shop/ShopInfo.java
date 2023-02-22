@@ -1,4 +1,4 @@
-package com.yautumn.common.entity;
+package com.yautumn.common.entity.shop;
 
 import lombok.Data;
 
@@ -34,8 +34,8 @@ public class ShopInfo {
 
     private String remark;
 
-    private Date createtime;
+    private String createtime;
 
-    private Date updatedatetime;
+    private String updatetime;
 
 }

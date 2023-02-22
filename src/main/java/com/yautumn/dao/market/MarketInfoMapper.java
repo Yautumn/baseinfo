@@ -1,7 +1,6 @@
 package com.yautumn.dao.market;
 
-import com.yautumn.common.entity.MarketInfo;
-import com.yautumn.param.request.market.MarketParam;
+import com.yautumn.common.entity.market.MarketInfo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +21,5 @@ public interface MarketInfoMapper {
 
     List<MarketInfo> findAll(int start, int end);
 
-    int selectCount(MarketParam marketParam);
+    int selectCount();
 }

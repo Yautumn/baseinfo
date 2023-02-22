@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.company.CompanyCommodityInfoMapper">
-  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.CompanyCommodityInfo">
+  <resultMap id="BaseResultMap" type="com.yautumn.common.entity.company.CompanyCommodityInfo">
     <id column="id" jdbcType="VARCHAR" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="type" jdbcType="VARCHAR" property="type"/>
@@ -28,7 +28,7 @@
     from company_commodity_information
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yautumn.common.entity.CompanyCommodityInfo">
+  <insert id="insert" parameterType="com.yautumn.common.entity.company.CompanyCommodityInfo">
     insert into company_commodity_information (id, name, type,
                                                specific, unit, iscontract,
                                                status, createtime, updatetime,
@@ -38,7 +38,7 @@
             #{status,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR},
             #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yautumn.common.entity.CompanyCommodityInfo">
+  <insert id="insertSelective" parameterType="com.yautumn.common.entity.company.CompanyCommodityInfo">
     insert into company_commodity_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -105,7 +105,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.CompanyCommodityInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.yautumn.common.entity.company.CompanyCommodityInfo">
     update company_commodity_information
     <set>
       <if test="name != null">
@@ -138,7 +138,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.CompanyCommodityInfo">
+  <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.company.CompanyCommodityInfo">
     update company_commodity_information
     set name       = #{name,jdbcType=VARCHAR},
         type       = #{type,jdbcType=VARCHAR},

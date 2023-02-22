@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
     <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包-->
-    <classPathEntry location="/Users/yautumn/maven-repository/mysql/mysql-connector-java/8.0.21/mysql-connector-java-8.0.21.jar"/>
+    <classPathEntry location="E:\Java\Repository\mysql\mysql-connector-java\8.0.27\mysql-connector-java-8.0.27.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
         <!-- 表名前后加上''的分隔符 -->
@@ -29,7 +29,7 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="mybatis.mapper.shop" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置-->
@@ -37,8 +37,9 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="market_information" domainObjectName="MarketInfo" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 <!--        <table tableName="shop_information" domainObjectName="ShopInfo" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="company_commodity_information" domainObjectName="CompanyCommodityInfo" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<!--        <table tableName="company_commodity_information" domainObjectName="CompanyCommodityInfo" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 <!--        <table tableName="company_information" domainObjectName="CompanyInfor" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 <!--        <table tableName="shop_agent_information" domainObjectName="ShopAgentInfo" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 <!--        <table tableName="shop_cargo_agent_information" domainObjectName="ShopCargoAgentInfo" enableCountByExample="ture" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->

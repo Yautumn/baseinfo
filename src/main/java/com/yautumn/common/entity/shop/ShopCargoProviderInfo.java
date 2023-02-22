@@ -1,20 +1,20 @@
-package com.yautumn.common.entity;
+package com.yautumn.common.entity.shop;
 
 import lombok.Data;
 
 @Data
-public class ShopCargoAgentInfo {
+public class ShopCargoProviderInfo {
     private String id;
 
     private String shopId;
 
-    private String agentName;
+    private String providerName;
 
     private String houseNumber;
 
-    private String marketId;
+    private String providerMarketId;
 
-    private String agentAddr;
+    private String providerAddr;
 
     private String status;
 
@@ -23,4 +23,5 @@ public class ShopCargoAgentInfo {
     private String updatetime;
 
     private String remark;
+
 }
