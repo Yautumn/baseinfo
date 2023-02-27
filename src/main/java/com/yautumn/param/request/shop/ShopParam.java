@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ShopParam {
 
     @ApiModelProperty(example = "",value = "商户id")
-    private String id;
+    private int id;
 
     @ApiModelProperty(example = "商户名称1",value = "商户名称")
     private String name;
@@ -19,7 +19,7 @@ public class ShopParam {
     private String alias;
 
     @ApiModelProperty(example = "001",value = "商户所处市场id")
-    private String marketId;
+    private int marketId;
 
     @ApiModelProperty(example = "9-a-64",value = "门牌号")
     private String houseNumber;

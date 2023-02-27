@@ -38,8 +38,6 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     public String insert(MarketParam marketParam) {
         MarketInfo marketInfo = new MarketInfo();
         BeanUtils.copyProperties(marketParam,marketInfo);
-        String id = GenerateUtil.getUUID();
-        marketInfo.setId(id);
         Date createTime = new Date();
         marketInfo.setCreatetime(DateUtils.dateTimeToString(createTime));
         int i = marketInfoMapper.insert(marketInfo);
@@ -67,7 +65,7 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     }
 
     @Override
-    public String delete(String marketId) {
+    public String delete(Integer marketId) {
         if (this.isNull(marketId)){
             return "市场信息不存在";
         }
@@ -83,7 +81,7 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     }
 
     @Override
-    public MarketInfo findById(String marketId) {
+    public MarketInfo findById(Integer marketId) {
         MarketInfo marketInfo = marketInfoMapper.selectByPrimaryKey(marketId);
         return marketInfo;
     }
@@ -105,7 +103,7 @@ public class MarketInfoServiceImpl implements MarketInfoService {
         return num;
     }
 
-    private boolean isNull(String marketId){
+    private boolean isNull(Integer marketId){
         boolean flag = false;
         MarketInfo marketInfo = this.findById(marketId);
         if (null == marketInfo){

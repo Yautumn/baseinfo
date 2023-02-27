@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopInfoMapper">
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopInfo">
-    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="alias" jdbcType="VARCHAR" property="alias"/>
-    <result column="market_id" jdbcType="VARCHAR" property="marketId"/>
+    <result column="market_id" jdbcType="INTEGER" property="marketId"/>
     <result column="house_number" jdbcType="VARCHAR" property="houseNumber"/>
     <result column="addr" jdbcType="VARCHAR" property="addr"/>
     <result column="tag" jdbcType="VARCHAR" property="tag"/>
@@ -23,16 +23,16 @@
     id, name, alias, market_id, house_number, addr, tag, keeper, phone1, phone2, mobile1, 
     mobile2, status, remark, createtime, updatetime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List"/>
     from shop_information
-    where status = 1 and id = #{id,jdbcType=VARCHAR}
+    where status = 1 and id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete
     from shop_information
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopInfo">
     insert into shop_information (id, name, alias,
@@ -41,8 +41,8 @@
                                   phone2, mobile1, mobile2,
                                   status, remark, createtime,
                                   updatetime)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR},
-            #{marketId,jdbcType=VARCHAR}, #{houseNumber,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR},
+            #{marketId,jdbcType=INTEGER}, #{houseNumber,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR},
             #{tag,jdbcType=VARCHAR}, #{keeper,jdbcType=VARCHAR}, #{phone1,jdbcType=VARCHAR},
             #{phone2,jdbcType=VARCHAR}, #{mobile1,jdbcType=VARCHAR}, #{mobile2,jdbcType=VARCHAR},
             #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR},
@@ -102,7 +102,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -111,7 +111,7 @@
         #{alias,jdbcType=VARCHAR},
       </if>
       <if test="marketId != null">
-        #{marketId,jdbcType=VARCHAR},
+        #{marketId,jdbcType=INTEGER},
       </if>
       <if test="houseNumber != null">
         #{houseNumber,jdbcType=VARCHAR},
@@ -161,7 +161,7 @@
         alias = #{alias,jdbcType=VARCHAR},
       </if>
       <if test="marketId != null">
-        market_id = #{marketId,jdbcType=VARCHAR},
+        market_id = #{marketId,jdbcType=INTEGER},
       </if>
       <if test="houseNumber != null">
         house_number = #{houseNumber,jdbcType=VARCHAR},
@@ -200,13 +200,13 @@
         updatedatetime = #{updatedatetime,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopInfo">
     update shop_information
     set name           = #{name,jdbcType=VARCHAR},
         alias          = #{alias,jdbcType=VARCHAR},
-        market_id      = #{marketId,jdbcType=VARCHAR},
+        market_id      = #{marketId,jdbcType=INTEGER},
         house_number   = #{houseNumber,jdbcType=VARCHAR},
         addr           = #{addr,jdbcType=VARCHAR},
         tag            = #{tag,jdbcType=VARCHAR},
@@ -219,7 +219,7 @@
         remark         = #{remark,jdbcType=VARCHAR},
         createtime     = #{createtime,jdbcType=VARCHAR},
         updatetime = #{updatetime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectCount" resultType="java.lang.Integer">
     select count(1)

@@ -11,11 +11,11 @@ public interface ShopInfoService {
 
     String insert(ShopParam shopParam);
 
-    String delShopByID(String shopId);
+    String delShopByID(int shopId);
 
     String updateShop(ShopParam shopParam);
 
-    ShopInfo findShopById(String shopId);
+    ShopInfo findShopById(int shopId);
 
     PageBeanUtil findShopAll(PageParam pageParam);
 

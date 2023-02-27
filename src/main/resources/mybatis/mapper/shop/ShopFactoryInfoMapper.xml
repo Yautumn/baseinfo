@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopFactoryInfoMapper">
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopFactoryInfo">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
     <result column="factory_name" jdbcType="VARCHAR" property="factoryName" />
     <result column="factory_addr" jdbcType="VARCHAR" property="factoryAddr" />
     <result column="factory_phone1" jdbcType="VARCHAR" property="factoryPhone1" />
@@ -19,15 +19,15 @@
     id, shop_id, factory_name, factory_addr, factory_phone1, factory_phone2, factory_mobile1, 
     factory_mobile2, status, createtime, updatetime, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from shop_factory_information
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from shop_factory_information
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
     insert into shop_factory_information (id, shop_id, factory_name, 
@@ -35,7 +35,7 @@
       factory_mobile1, factory_mobile2, status, 
       createtime, updatetime, remark
       )
-    values (#{id,jdbcType=VARCHAR}, #{shopId,jdbcType=VARCHAR}, #{factoryName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{factoryName,jdbcType=VARCHAR},
       #{factoryAddr,jdbcType=VARCHAR}, #{factoryPhone1,jdbcType=VARCHAR}, #{factoryPhone2,jdbcType=VARCHAR}, 
       #{factoryMobile1,jdbcType=VARCHAR}, #{factoryMobile2,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
@@ -83,10 +83,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="shopId != null">
-        #{shopId,jdbcType=VARCHAR},
+        #{shopId,jdbcType=INTEGER},
       </if>
       <if test="factoryName != null">
         #{factoryName,jdbcType=VARCHAR},
@@ -124,7 +124,7 @@
     update shop_factory_information
     <set>
       <if test="shopId != null">
-        shop_id = #{shopId,jdbcType=VARCHAR},
+        shop_id = #{shopId,jdbcType=INTEGER},
       </if>
       <if test="factoryName != null">
         factory_name = #{factoryName,jdbcType=VARCHAR},
@@ -157,11 +157,11 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
     update shop_factory_information
-    set shop_id = #{shopId,jdbcType=VARCHAR},
+    set shop_id = #{shopId,jdbcType=INTEGER},
       factory_name = #{factoryName,jdbcType=VARCHAR},
       factory_addr = #{factoryAddr,jdbcType=VARCHAR},
       factory_phone1 = #{factoryPhone1,jdbcType=VARCHAR},
@@ -172,6 +172,6 @@
       createtime = #{createtime,jdbcType=VARCHAR},
       updatetime = #{updatetime,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

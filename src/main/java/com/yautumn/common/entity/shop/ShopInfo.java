@@ -6,13 +6,13 @@ import java.util.Date;
 
 @Data
 public class ShopInfo {
-    private String id;
+    private int id;
 
     private String name;
 
     private String alias;
 
-    private String marketId;
+    private int marketId;
 
     private String houseNumber;
 

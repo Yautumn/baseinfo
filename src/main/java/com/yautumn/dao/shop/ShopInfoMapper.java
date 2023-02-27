@@ -7,13 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface ShopInfoMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(int id);
 
     int insert(ShopInfo record);
 
     int insertSelective(ShopInfo record);
 
-    ShopInfo selectByPrimaryKey(String id);
+    ShopInfo selectByPrimaryKey(int id);
 
     int updateByPrimaryKeySelective(ShopInfo record);
 

@@ -35,9 +35,7 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     @Override
     public String insert(ShopCommodityParam shopCommodityParam) {
         ShopCommodityInformation shopCommodityInformation = new ShopCommodityInformation();
-        String id = GenerateUtil.getUUID();
         BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
-        shopCommodityInformation.setId(id);
         shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.insert(shopCommodityInformation);
         if (i == 1){
@@ -53,7 +51,7 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
      * @return
      */
     @Override
-    public String delShopCommodityByID(String shopCommodityId) {
+    public String delShopCommodityByID(int shopCommodityId) {
         if (isNull(shopCommodityId)) {
             return "商品信息不存在";
         }
@@ -109,7 +107,7 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
      * @return
      */
     @Override
-    public ShopCommodityInformation findShopCommodityByID(String shopCommodityId) {
+    public ShopCommodityInformation findShopCommodityByID(int shopCommodityId) {
         ShopCommodityInformation shopCommodityInformation = shopCommodityInformationMapper.selectByPrimaryKey(shopCommodityId);
         return shopCommodityInformation;
     }
@@ -127,7 +125,6 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         shopCommodityParams.forEach(shopCommodityParam -> {
             ShopCommodityInformation shopCommodityInformation = new ShopCommodityInformation();
             BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
-            shopCommodityInformation.setId(GenerateUtil.getUUID());
             shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
             shopCommodityInformations.add(shopCommodityInformation);
         });
@@ -140,7 +137,7 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     }
 
 
-    private boolean isNull(String shopCommodityId){
+    private boolean isNull(int shopCommodityId){
         boolean flag = false;
         ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityId);
         if (null != shopCommodityInformation){

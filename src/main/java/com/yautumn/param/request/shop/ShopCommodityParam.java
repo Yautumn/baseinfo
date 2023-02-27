@@ -10,10 +10,10 @@ import lombok.Setter;
 public class ShopCommodityParam {
 
     @ApiModelProperty(example = "",value = "商品id")
-    private String id;
+    private int id;
 
     @ApiModelProperty(example = "",value = "商户id")
-    private String shopId;
+    private int shopId;
 
     @ApiModelProperty(example = "XXX",value = "商品品牌")
     private String productBrand;

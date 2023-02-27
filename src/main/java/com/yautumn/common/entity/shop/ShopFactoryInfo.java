@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class ShopFactoryInfo {
-    private String id;
+    private int id;
 
-    private String shopId;
+    private int shopId;
 
     private String factoryName;
 

@@ -28,18 +28,18 @@ public interface MarketInfoService {
      * @param marketId
      * @return
      */
-    String delete(String marketId);
+    String delete(Integer marketId);
 
     /**
      * 根据id查询市场信息
      * @param marketId
      * @return
      */
-    MarketInfo findById(String marketId);
+    MarketInfo findById(Integer marketId);
 
     /**
      * 分页查询市场信息列表
-     * @param marketParam
+     * @param pageParam
      * @return
      */
     PageBeanUtil findMarketAll(PageParam pageParam);

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yautumn.dao.shop.ShopAgentInfoMapper">
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopAgentInfo">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="agent_name" jdbcType="VARCHAR" property="agentName" />
     <result column="agent_phone" jdbcType="VARCHAR" property="agentPhone" />
     <result column="agent_mobile" jdbcType="VARCHAR" property="agentMobile" />
@@ -16,22 +16,22 @@
     id, agent_name, agent_phone, agent_mobile, agent_city, agent_addr, agent_logistics, 
     status, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from shop_agent_information
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from shop_agent_information
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
     insert into shop_agent_information (id, agent_name, agent_phone, 
       agent_mobile, agent_city, agent_addr, 
       agent_logistics, status, remark
       )
-    values (#{id,jdbcType=VARCHAR}, #{agentName,jdbcType=VARCHAR}, #{agentPhone,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{agentName,jdbcType=VARCHAR}, #{agentPhone,jdbcType=VARCHAR},
       #{agentMobile,jdbcType=VARCHAR}, #{agentCity,jdbcType=VARCHAR}, #{agentAddr,jdbcType=VARCHAR}, 
       #{agentLogistics,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
@@ -69,7 +69,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="agentName != null">
         #{agentName,jdbcType=VARCHAR},
@@ -125,7 +125,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
     update shop_agent_information
@@ -137,6 +137,6 @@
       agent_logistics = #{agentLogistics,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -33,9 +33,7 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     @Override
     public String insert(ShopParam shopParam) {
         ShopInfo shopInfo = new ShopInfo();
-        String id = GenerateUtil.getUUID();
         BeanUtils.copyProperties(shopParam,shopInfo);
-        shopInfo.setId(id);
         shopInfo.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.insert(shopInfo);
         if (i == 1){
@@ -50,7 +48,7 @@ public class ShopInfoServiceImpl implements ShopInfoService {
      * @param shopId
      */
     @Override
-    public String delShopByID(String shopId) {
+    public String delShopByID(int shopId) {
         if (isNull(shopId)) {
             return "商户信息不存在";
         }
@@ -92,7 +90,7 @@ public class ShopInfoServiceImpl implements ShopInfoService {
      * @return
      */
     @Override
-    public ShopInfo findShopById(String shopId) {
+    public ShopInfo findShopById(int shopId) {
         return shopInfoMapper.selectByPrimaryKey(shopId);
     }
 
@@ -122,7 +120,7 @@ public class ShopInfoServiceImpl implements ShopInfoService {
         return num;
     }
 
-    private boolean isNull(String shopId){
+    private boolean isNull(int shopId){
         boolean flag = false;
         ShopInfo shopInfo = this.findShopById(shopId);
         if (null == shopInfo){

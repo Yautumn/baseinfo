@@ -13,13 +13,13 @@ public interface ShopCommodityInfoService {
 
     String insert(ShopCommodityParam shopCommodityParam);
 
-    String delShopCommodityByID(String shopCommodityId);
+    String delShopCommodityByID(int shopCommodityId);
 
     String updateCommdityByID(ShopCommodityParam shopCommodityParam);
 
     PageBeanUtil findCommdityAll(PageParam pageParam);
 
-    ShopCommodityInformation findShopCommodityByID(String shopCommodityId);
+    ShopCommodityInformation findShopCommodityByID(int shopCommodityId);
 
     int countCommoditys();
 

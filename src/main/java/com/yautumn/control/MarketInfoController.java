@@ -29,7 +29,7 @@ public class MarketInfoController {
 
     @ApiOperation(value = "根据市场id删除市场方法")
     @DeleteMapping("/del/id")
-    public ResultUtil del(@RequestParam @ApiParam(value = "市场id" , defaultValue = "a54754b885054bc3ba8fed163abc6c04") String marketId){
+    public ResultUtil del(@RequestParam @ApiParam(value = "市场id" , defaultValue = "1") Integer marketId){
         String msg = marketInfoService.delete(marketId);
         return ResultUtil.success(msg);
     }
@@ -43,7 +43,7 @@ public class MarketInfoController {
 
     @ApiOperation(value = "根据id查询市场方法")
     @GetMapping("/find/id")
-    public ResultUtil findById(@RequestParam @ApiParam(value = "市场id" , defaultValue = "a54754b885054bc3ba8fed163abc6c04") String marketId){
+    public ResultUtil findById(@RequestParam @ApiParam(value = "市场id" , defaultValue = "1") Integer marketId){
         MarketInfo marketInfo = marketInfoService.findById(marketId);
         return ResultUtil.success(marketInfo);
     }

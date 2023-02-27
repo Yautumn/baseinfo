@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class MarketInfo implements Serializable {
-    private String id;
+    private int id;
 
     private String marketName;
 

@@ -29,7 +29,7 @@ public class ShopInfoController {
 
     @ApiOperation(value = "根据商户id删除商户信息方法")
     @DeleteMapping("/del/id")
-    public ResultUtil delShopInfo(@RequestParam @ApiParam(value = "商户id" , defaultValue = "a54754b885054bc3ba8fed163abc6c04") String shopId) {
+    public ResultUtil delShopInfo(@RequestParam @ApiParam(value = "商户id" , defaultValue = "1") int shopId) {
         String msg = shopInfoService.delShopByID(shopId);
         return ResultUtil.success(msg);
     }
@@ -44,7 +44,7 @@ public class ShopInfoController {
 
     @ApiOperation(value = "根据id查询商户信息方法")
     @GetMapping("/find/id")
-    public ResultUtil findShopById(@RequestParam @ApiParam(value = "商户id", defaultValue = "a54754b885054bc3ba8fed163abc6c04") String shopId) {
+    public ResultUtil findShopById(@RequestParam @ApiParam(value = "商户id", defaultValue = "1") int shopId) {
         ShopInfo shopInfo = shopInfoService.findShopById(shopId);
         if (null != shopInfo) {
             return ResultUtil.success(shopInfo);

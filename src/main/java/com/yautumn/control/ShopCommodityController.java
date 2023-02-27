@@ -31,7 +31,7 @@ public class ShopCommodityController {
 
     @ApiOperation(value = "根据id删除商品信息方法")
     @DeleteMapping("/delete/id")
-    public ResultUtil delCommodity(@RequestParam @ApiParam(value = "商品id" , defaultValue = "a54754b885054bc3ba8fed163abc6c04")String shopCommodityId){
+    public ResultUtil delCommodity(@RequestParam @ApiParam(value = "商品id" , defaultValue = "1")int shopCommodityId){
         String msg = shopCommodityInfoService.delShopCommodityByID(shopCommodityId);
         return ResultUtil.success(msg);
     }
@@ -45,7 +45,7 @@ public class ShopCommodityController {
 
     @ApiOperation(value = "根据id查询商品信息方法")
     @GetMapping("/find/id")
-    public ResultUtil findShopById(@RequestParam @ApiParam(value = "商品id" , defaultValue = "a54754b885054bc3ba8fed163abc6c04")String shopCommodityId){
+    public ResultUtil findShopById(@RequestParam @ApiParam(value = "商品id" , defaultValue = "1")int shopCommodityId){
         ShopCommodityInformation shopCommodityInformation = shopCommodityInfoService.findShopCommodityByID(shopCommodityId);
         if (null != shopCommodityInformation){
             return ResultUtil.success(shopCommodityInformation);

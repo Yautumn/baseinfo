@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class MarketParam {
     @ApiModelProperty(example = "",value = "市场id")
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(example = "XJSC",value = "市场名称")
     private String marketName;

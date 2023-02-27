@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ShopCargoGoodsInfo {
-    private String id;
+    private int id;
 
     private String cargoGoodsName;
 

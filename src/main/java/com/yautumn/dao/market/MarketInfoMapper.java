@@ -7,13 +7,13 @@ import java.util.List;
 
 @Repository
 public interface MarketInfoMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(MarketInfo record);
 
     int insertSelective(MarketInfo record);
 
-    MarketInfo selectByPrimaryKey(String id);
+    MarketInfo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(MarketInfo record);
 
