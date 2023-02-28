@@ -16,6 +16,6 @@ public class PageParam {
     private int pageSize;
 
     @ApiModelProperty(example = "20",value = "最大条数")
-    private int totalPage;
+    private int totalCount;
 
 }

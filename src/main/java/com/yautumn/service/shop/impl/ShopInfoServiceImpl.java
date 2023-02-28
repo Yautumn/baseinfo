@@ -2,11 +2,11 @@ package com.yautumn.service.shop.impl;
 
 import com.yautumn.common.entity.shop.ShopInfo;
 import com.yautumn.common.utils.DateUtils;
-import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopInfoMapper;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopParam;
+import com.yautumn.param.response.ShopInfoEnum;
 import com.yautumn.service.shop.ShopInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +37,9 @@ public class ShopInfoServiceImpl implements ShopInfoService {
         shopInfo.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.insert(shopInfo);
         if (i == 1){
-            return "操作成功";
+            return ShopInfoEnum.SUCCESS.name;
         }else {
-            return "商户信息插入失败";
+            return ShopInfoEnum.SHOP_INSERT_ERROR.name;
         }
     }
 
@@ -50,16 +50,16 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     @Override
     public String delShopByID(int shopId) {
         if (isNull(shopId)) {
-            return "商户信息不存在";
+            return ShopInfoEnum.SHOP_IS_NOT_EXIST.name;
         }
         ShopInfo shopInfo = this.findShopById(shopId);
         shopInfo.setStatus("0");
         shopInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.updateByPrimaryKey(shopInfo);
         if (i == 1) {
-            return "操作成功";
+            return ShopInfoEnum.SUCCESS.name;
         } else {
-            return "商户信息删除失败";
+            return ShopInfoEnum.SHOP_DELETE_ERROR.name;
         }
     }
 
@@ -71,16 +71,16 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     @Override
     public String updateShop(ShopParam shopParam) {
         if (this.isNull(shopParam.getId())){
-            return "商户信息不存在";
+            return ShopInfoEnum.SHOP_IS_NOT_EXIST.name;
         }
         ShopInfo shopInfoNew = this.findShopById(shopParam.getId());
         BeanUtils.copyProperties(shopParam,shopInfoNew);
         shopInfoNew.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.updateByPrimaryKey(shopInfoNew);
         if (i == 1){
-            return "操作成功";
+            return ShopInfoEnum.SUCCESS.name;
         }else {
-            return "商户信息更新失败";
+            return ShopInfoEnum.SHOP_UPDATE_ERROR.name;
         }
     }
 
@@ -103,8 +103,8 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     public PageBeanUtil findShopAll(PageParam pageParam) {
         int currentPage = pageParam.getCurrentPage();
         int pageSize = pageParam.getPageSize();
-        int totalPage = pageParam.getTotalPage();
-        PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalPage);
+        int totalCount = pageParam.getTotalCount();
+        PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalCount);
         List<ShopInfo> shopInfos = shopInfoMapper.findShopAll(pageBeanUtil.getStart(),pageBeanUtil.getEnd());
         pageBeanUtil.setList(shopInfos);
         return pageBeanUtil;

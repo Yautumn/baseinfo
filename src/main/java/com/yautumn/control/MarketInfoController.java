@@ -5,6 +5,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.market.MarketParam;
+import com.yautumn.param.response.MarketInfoEnum;
 import com.yautumn.service.market.MarketInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,21 +46,27 @@ public class MarketInfoController {
     @GetMapping("/find/id")
     public ResultUtil findById(@RequestParam @ApiParam(value = "市场id" , defaultValue = "1") Integer marketId){
         MarketInfo marketInfo = marketInfoService.findById(marketId);
+        if(null == marketInfo){
+            return ResultUtil.success(MarketInfoEnum.MARKET_IS_NOT_EXIST.name);
+        }
         return ResultUtil.success(marketInfo);
     }
 
     @ApiOperation(value = "查询所有市场方法")
     @PostMapping("/find/all")
-    public PageBeanUtil findAll(@RequestBody PageParam pageParam){
+    public ResultUtil findAll(@RequestBody PageParam pageParam){
         PageBeanUtil<MarketInfo> marketInfos = marketInfoService.findMarketAll(pageParam);
-        return marketInfos;
+        if (marketInfos.getList().isEmpty()){
+            ResultUtil.success(MarketInfoEnum.MARKET_IS_NOT_EXIST.name);
+        }
+        return ResultUtil.success(marketInfos);
     }
 
     @ApiOperation(value = "查询所有市场数量方法")
     @GetMapping("/count")
-    public int findAllCount(){
+    public ResultUtil findAllCount(){
         int count = marketInfoService.countMarket();
-        return count;
+        return ResultUtil.success(count);
     }
 
 }

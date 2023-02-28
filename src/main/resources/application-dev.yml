@@ -43,3 +43,5 @@ fileCreatePath: /Users/yautumn/filecreate/
 
 logging:
   config: classpath:logback-spring.xml
+
+shopMemerMax: 3

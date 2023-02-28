@@ -30,9 +30,6 @@ public class ShopCommodityParam {
     @ApiModelProperty(example = "米",value = "商品单位")
     private String productUnit;
 
-    @ApiModelProperty(example = "1",value = "状态 1生效 0无效")
-    private String status;
-
     @ApiModelProperty(example = "",value = "备注")
     private String remark;
 

@@ -19,9 +19,9 @@ public interface ShopCommodityInformationMapper {
 
     int updateByPrimaryKey(ShopCommodityInformation record);
 
-    int selectCount();
+    int selectCount(int shopId);
 
-    List<ShopCommodityInformation> findCommodityAll(Integer startIndex, int pageSize);
+    List<ShopCommodityInformation> findCommodityAll(Integer start, Integer end);
 
     int batchInsert(List<ShopCommodityInformation> commodityInformationList);
 }

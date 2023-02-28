@@ -29,7 +29,7 @@ public class PageBeanUtil<T> {
         }
         if (currentPage < totalPage){
             this.start = (currentPage-1)*pageSize;
-            this.end = start + 19;
+            this.end = start + pageSize;
         }else {
             this.start = (currentPage-1)*pageSize;
             this.end = totalCount;

@@ -45,9 +45,6 @@ public class ShopParam {
     @ApiModelProperty(example = "1******",value = "商户手机2")
     private String mobile2;
 
-    @ApiModelProperty(example = "1",value = "状态 1生效 0无效")
-    private String status;
-
     @ApiModelProperty(example = " ",value = "备注")
     private String remark;
 

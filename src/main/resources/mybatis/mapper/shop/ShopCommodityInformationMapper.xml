@@ -163,7 +163,7 @@
         remark           = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="findCommodityAll" resultType="com.yautumn.common.entity.shop.ShopCommodityInformation">
+  <select id="findCommodityAll" resultType="com.yautumn.common.entity.shop.ShopCommodityInformation" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from shop_commodity_information
@@ -188,6 +188,6 @@
   <select id="selectCount" resultType="java.lang.Integer">
     select count(1)
     from shop_commodity_information
-    where status = 1
+    where status = 1 and shop_id = #{shopId}
   </select>
 </mapper>

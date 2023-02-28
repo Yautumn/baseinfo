@@ -3,12 +3,12 @@ package com.yautumn.service.market.impl;
 
 import com.yautumn.common.entity.market.MarketInfo;
 import com.yautumn.common.utils.DateUtils;
-import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.JedisUtils;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.market.MarketInfoMapper;
 import com.yautumn.param.request.market.MarketParam;
 import com.yautumn.param.request.common.PageParam;
+import com.yautumn.param.response.MarketInfoEnum;
 import com.yautumn.service.market.MarketInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,41 +42,41 @@ public class MarketInfoServiceImpl implements MarketInfoService {
         marketInfo.setCreatetime(DateUtils.dateTimeToString(createTime));
         int i = marketInfoMapper.insert(marketInfo);
         if (i == 1){
-            return "操作成功";
+            return MarketInfoEnum.SUCCESS.name;
         }else {
-            return "市场信息插入失败";
+            return MarketInfoEnum.MARKET_INSERT_ERROR.name;
         }
     }
 
     @Override
     public String update(MarketParam marketParam) {
         if (this.isNull(marketParam.getId())){
-            return "市场信息不存在";
+            return MarketInfoEnum.MARKET_IS_NOT_EXIST.name;
         }
         MarketInfo marketInfo = this.findById(marketParam.getId());
         BeanUtils.copyProperties(marketParam, marketInfo);
         marketInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = marketInfoMapper.updateByPrimaryKey(marketInfo);
         if (i == 1){
-            return "操作成功";
+            return MarketInfoEnum.SUCCESS.name;
         }else {
-            return "市场信息删除失败";
+            return MarketInfoEnum.MARKET_UPDATE_ERROR.name;
         }
     }
 
     @Override
     public String delete(Integer marketId) {
         if (this.isNull(marketId)){
-            return "市场信息不存在";
+            return MarketInfoEnum.MARKET_IS_NOT_EXIST.name;
         }
         MarketInfo marketInfo = marketInfoMapper.selectByPrimaryKey(marketId);
         marketInfo.setStatus("0");
         marketInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = marketInfoMapper.updateByPrimaryKey(marketInfo);
         if (i == 1) {
-            return "操作成功";
+            return MarketInfoEnum.SUCCESS.name;
         } else {
-            return "市场信息删除失败";
+            return MarketInfoEnum.MARKET_DELETE_ERROR.name;
         }
     }
 
@@ -90,8 +90,8 @@ public class MarketInfoServiceImpl implements MarketInfoService {
     public PageBeanUtil findMarketAll(PageParam pageParam) {
         int currentPage = pageParam.getCurrentPage();
         int pageSize = pageParam.getPageSize();
-        int totalPage = pageParam.getTotalPage();
-        PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalPage);
+        int totalCount = pageParam.getTotalCount();
+        PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalCount);
         List<MarketInfo> marketInfos = marketInfoMapper.findAll(pageBeanUtil.getStart(),pageBeanUtil.getEnd());
         pageBeanUtil.setList(marketInfos);
         return pageBeanUtil;

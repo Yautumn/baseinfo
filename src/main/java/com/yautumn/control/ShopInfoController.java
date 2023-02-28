@@ -5,6 +5,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopParam;
+import com.yautumn.param.response.ShopInfoEnum;
 import com.yautumn.service.shop.ShopInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +50,7 @@ public class ShopInfoController {
         if (null != shopInfo) {
             return ResultUtil.success(shopInfo);
         } else {
-            return ResultUtil.success("商户信息不存在");
+            return ResultUtil.success(ShopInfoEnum.SHOP_IS_NOT_EXIST.name);
         }
     }
 
@@ -65,6 +66,9 @@ public class ShopInfoController {
     @PostMapping("/find/all")
     public ResultUtil findShopAll(@RequestBody PageParam pageParam) {
         PageBeanUtil pageBeanUtil = shopInfoService.findShopAll(pageParam);
+        if(pageBeanUtil.getList().isEmpty()){
+            return ResultUtil.success(ShopInfoEnum.SHOP_IS_NOT_EXIST.name);
+        }
         return ResultUtil.success(pageBeanUtil);
     }
 

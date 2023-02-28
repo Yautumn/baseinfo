@@ -3,7 +3,7 @@
 <mapper namespace="com.yautumn.dao.shop.ShopMemberInfoMapper">
   <resultMap id="BaseResultMap" type="com.yautumn.common.entity.shop.ShopMemberInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
     <result column="assistant_name" jdbcType="VARCHAR" property="assistantName" />
     <result column="assistant_phone" jdbcType="VARCHAR" property="assistantPhone" />
     <result column="assistant_type" jdbcType="VARCHAR" property="assistantType" />
@@ -31,7 +31,7 @@
       assistant_phone, assistant_type, status, 
       createtime, updatetime, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=VARCHAR}, #{assistantName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{assistantName,jdbcType=VARCHAR},
       #{assistantPhone,jdbcType=VARCHAR}, #{assistantType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
@@ -72,7 +72,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="shopId != null">
-        #{shopId,jdbcType=VARCHAR},
+        #{shopId,jdbcType=INTEGER},
       </if>
       <if test="assistantName != null">
         #{assistantName,jdbcType=VARCHAR},
@@ -101,7 +101,7 @@
     update shop_member_information
     <set>
       <if test="shopId != null">
-        shop_id = #{shopId,jdbcType=VARCHAR},
+        shop_id = #{shopId,jdbcType=INTEGER},
       </if>
       <if test="assistantName != null">
         assistant_name = #{assistantName,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yautumn.common.entity.shop.ShopMemberInfo">
     update shop_member_information
-    set shop_id = #{shopId,jdbcType=VARCHAR},
+    set shop_id = #{shopId,jdbcType=INTEGER},
       assistant_name = #{assistantName,jdbcType=VARCHAR},
       assistant_phone = #{assistantPhone,jdbcType=VARCHAR},
       assistant_type = #{assistantType,jdbcType=VARCHAR},
@@ -139,4 +139,15 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findByShopId" resultType="com.yautumn.common.entity.shop.ShopMemberInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from shop_member_information
+    where status = 1 and shop_id = #{shopId}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(1)
+    from shop_member_information
+    where status = 1 and shop_id = #{shopId}
+  </select>
 </mapper>

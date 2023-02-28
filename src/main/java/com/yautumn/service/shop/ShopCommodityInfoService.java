@@ -21,7 +21,9 @@ public interface ShopCommodityInfoService {
 
     ShopCommodityInformation findShopCommodityByID(int shopCommodityId);
 
-    int countCommoditys();
+    int countCommoditys(int shopId);
 
     String batchInsert(List<ShopCommodityParam> shopCommodityParams);
+
+    String batchUpdate(List<ShopCommodityParam> shopCommodityParams);
 }

@@ -3,11 +3,11 @@ package com.yautumn.service.shop.impl;
 import com.yautumn.common.entity.shop.ShopCommodityInformation;
 import com.yautumn.common.utils.BatchUtils;
 import com.yautumn.common.utils.DateUtils;
-import com.yautumn.common.utils.GenerateUtil;
 import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopCommodityInformationMapper;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopCommodityParam;
+import com.yautumn.param.response.ShopCommodityInfoEnum;
 import com.yautumn.service.shop.ShopCommodityInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.insert(shopCommodityInformation);
         if (i == 1){
-            return "操作成功";
+            return ShopCommodityInfoEnum.SUCCESS.name;
         }else {
-            return "商户信息插入失败";
+            return ShopCommodityInfoEnum.SHOP_INSERT_ERROR.name;
         }
     }
 
@@ -57,9 +57,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         }
         int i = shopCommodityInformationMapper.deleteByPrimaryKey(shopCommodityId);
         if (i == 1) {
-            return "操作成功";
+            return ShopCommodityInfoEnum.SUCCESS.name;
         } else {
-            return "商品信息删除失败";
+            return ShopCommodityInfoEnum.SHOP_DELETE_ERROR.name;
         }
     }
 
@@ -71,16 +71,16 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     @Override
     public String updateCommdityByID(ShopCommodityParam shopCommodityParam) {
         if(this.isNull(shopCommodityParam.getId())){
-            return "商品信息不存在";
+            return ShopCommodityInfoEnum.SHOP_IS_NOT_EXIST.name;
         }
         ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityParam.getId());
         BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
         shopCommodityInformation.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.updateByPrimaryKey(shopCommodityInformation);
         if (i == 1){
-            return "操作成功";
+            return ShopCommodityInfoEnum.SUCCESS.name;
         }else {
-            return "商品信息更新失败";
+            return ShopCommodityInfoEnum.SHOP_UPDATE_ERROR.name;
         }
     }
 
@@ -93,8 +93,8 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     public PageBeanUtil findCommdityAll(PageParam pageParam) {
         int currentPage = pageParam.getCurrentPage();
         int pageSize = pageParam.getPageSize();
-        int totalPage = pageParam.getTotalPage();
-        PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalPage);
+        int totalCount = pageParam.getTotalCount();
+        PageBeanUtil pageBeanUtil = new PageBeanUtil(currentPage,pageSize,totalCount);
         List<ShopCommodityInformation> shopCommodityInformations = shopCommodityInformationMapper.findCommodityAll(pageBeanUtil.getStart(),pageBeanUtil.getEnd());
         pageBeanUtil.setList(shopCommodityInformations);
         return pageBeanUtil;
@@ -113,8 +113,8 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     }
 
     @Override
-    public int countCommoditys() {
-        int num = shopCommodityInformationMapper.selectCount();
+    public int countCommoditys(int shopId) {
+        int num = shopCommodityInformationMapper.selectCount(shopId);
         return num;
     }
 
@@ -130,9 +130,27 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         });
         int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.insert(item));
         if (i == 1){
-            return "操作成功";
+            return ShopCommodityInfoEnum.SUCCESS.name;
         }else {
-            return "商户信息插入失败";
+            return ShopCommodityInfoEnum.SHOP_BATCH_INSERT_ERROR.name;
+        }
+    }
+
+    @Override
+    @Transactional
+    public String batchUpdate(List<ShopCommodityParam> shopCommodityParams) {
+        List<ShopCommodityInformation> shopCommodityInformations = new ArrayList<ShopCommodityInformation>();
+        shopCommodityParams.forEach(shopCommodityParam -> {
+            ShopCommodityInformation shopCommodityInformation = new ShopCommodityInformation();
+            BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
+            shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
+            shopCommodityInformations.add(shopCommodityInformation);
+        });
+        int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.updateByPrimaryKey(item));
+        if (i == 1){
+            return ShopCommodityInfoEnum.SUCCESS.name;
+        }else {
+            return ShopCommodityInfoEnum.SHOP_BATCH_UPDATE_ERROR.name;
         }
     }
 
@@ -140,7 +158,7 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     private boolean isNull(int shopCommodityId){
         boolean flag = false;
         ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityId);
-        if (null != shopCommodityInformation){
+        if (null == shopCommodityInformation){
             flag = true;
         }
         return flag;

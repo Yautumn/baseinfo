@@ -5,6 +5,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopCommodityParam;
+import com.yautumn.param.response.ShopCommodityInfoEnum;
 import com.yautumn.service.shop.ShopCommodityInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,15 +51,15 @@ public class ShopCommodityController {
         if (null != shopCommodityInformation){
             return ResultUtil.success(shopCommodityInformation);
         }else {
-            return ResultUtil.success("商户信息不存在");
+            return ResultUtil.success(ShopCommodityInfoEnum.SHOP_IS_NOT_EXIST.name);
         }
     }
 
     @ApiOperation(value = "查询商品数量方法")
     @GetMapping("/count")
-    public ResultUtil countCommoditys(){
+    public ResultUtil countCommoditys(int shopId){
         int count = 0;
-        count = shopCommodityInfoService.countCommoditys();
+        count = shopCommodityInfoService.countCommoditys(shopId);
         return ResultUtil.success(count);
     }
 
@@ -74,6 +75,13 @@ public class ShopCommodityController {
     @PostMapping("/batch/insert")
     public ResultUtil batchInsert(@RequestBody List<ShopCommodityParam> shopCommodityParams){
         String msg = shopCommodityInfoService.batchInsert(shopCommodityParams);
+        return ResultUtil.success(msg);
+    }
+
+    @ApiOperation(value = "批量更新商品信息方法")
+    @PostMapping("/batch/update")
+    public ResultUtil batchUpdate(@RequestBody List<ShopCommodityParam> shopCommodityParams){
+        String msg = shopCommodityInfoService.batchUpdate(shopCommodityParams);
         return ResultUtil.success(msg);
     }
 }
