@@ -6,7 +6,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopInfoMapper;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopParam;
-import com.yautumn.param.response.ShopInfoEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.shop.ShopInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +37,9 @@ public class ShopInfoServiceImpl implements ShopInfoService {
         shopInfo.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.insert(shopInfo);
         if (i == 1){
-            return ShopInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopInfoEnum.SHOP_INSERT_ERROR.name;
+            return ExceptionsEnum.SHOP_INSERT_ERROR.name;
         }
     }
 
@@ -50,16 +50,16 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     @Override
     public String delShopByID(int shopId) {
         if (isNull(shopId)) {
-            return ShopInfoEnum.SHOP_IS_NOT_EXIST.name;
+            return ExceptionsEnum.SHOP_IS_NOT_EXIST.name;
         }
         ShopInfo shopInfo = this.findShopById(shopId);
         shopInfo.setStatus("0");
         shopInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.updateByPrimaryKey(shopInfo);
         if (i == 1) {
-            return ShopInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         } else {
-            return ShopInfoEnum.SHOP_DELETE_ERROR.name;
+            return ExceptionsEnum.SHOP_DELETE_ERROR.name;
         }
     }
 
@@ -71,16 +71,16 @@ public class ShopInfoServiceImpl implements ShopInfoService {
     @Override
     public String updateShop(ShopParam shopParam) {
         if (this.isNull(shopParam.getId())){
-            return ShopInfoEnum.SHOP_IS_NOT_EXIST.name;
+            return ExceptionsEnum.SHOP_IS_NOT_EXIST.name;
         }
         ShopInfo shopInfoNew = this.findShopById(shopParam.getId());
         BeanUtils.copyProperties(shopParam,shopInfoNew);
         shopInfoNew.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopInfoMapper.updateByPrimaryKey(shopInfoNew);
         if (i == 1){
-            return ShopInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopInfoEnum.SHOP_UPDATE_ERROR.name;
+            return ExceptionsEnum.SHOP_UPDATE_ERROR.name;
         }
     }
 

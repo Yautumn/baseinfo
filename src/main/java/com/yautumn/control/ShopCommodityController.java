@@ -5,7 +5,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopCommodityParam;
-import com.yautumn.param.response.ShopCommodityInfoEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.shop.ShopCommodityInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Api(tags = "店铺商品信息接口")
 @RestController
-@RequestMapping("commodity")
+@RequestMapping("shop/commodity")
 public class ShopCommodityController {
 
     @Autowired
@@ -51,7 +51,7 @@ public class ShopCommodityController {
         if (null != shopCommodityInformation){
             return ResultUtil.success(shopCommodityInformation);
         }else {
-            return ResultUtil.success(ShopCommodityInfoEnum.SHOP_IS_NOT_EXIST.name);
+            return ResultUtil.success(ExceptionsEnum.SHOP_IS_NOT_EXIST.name);
         }
     }
 

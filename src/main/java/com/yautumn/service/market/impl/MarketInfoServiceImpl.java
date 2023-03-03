@@ -8,7 +8,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.market.MarketInfoMapper;
 import com.yautumn.param.request.market.MarketParam;
 import com.yautumn.param.request.common.PageParam;
-import com.yautumn.param.response.MarketInfoEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.market.MarketInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,41 +42,41 @@ public class MarketInfoServiceImpl implements MarketInfoService {
         marketInfo.setCreatetime(DateUtils.dateTimeToString(createTime));
         int i = marketInfoMapper.insert(marketInfo);
         if (i == 1){
-            return MarketInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return MarketInfoEnum.MARKET_INSERT_ERROR.name;
+            return ExceptionsEnum.MARKET_INSERT_ERROR.name;
         }
     }
 
     @Override
     public String update(MarketParam marketParam) {
         if (this.isNull(marketParam.getId())){
-            return MarketInfoEnum.MARKET_IS_NOT_EXIST.name;
+            return ExceptionsEnum.MARKET_IS_NOT_EXIST.name;
         }
         MarketInfo marketInfo = this.findById(marketParam.getId());
         BeanUtils.copyProperties(marketParam, marketInfo);
         marketInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = marketInfoMapper.updateByPrimaryKey(marketInfo);
         if (i == 1){
-            return MarketInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return MarketInfoEnum.MARKET_UPDATE_ERROR.name;
+            return ExceptionsEnum.MARKET_UPDATE_ERROR.name;
         }
     }
 
     @Override
     public String delete(Integer marketId) {
         if (this.isNull(marketId)){
-            return MarketInfoEnum.MARKET_IS_NOT_EXIST.name;
+            return ExceptionsEnum.MARKET_IS_NOT_EXIST.name;
         }
         MarketInfo marketInfo = marketInfoMapper.selectByPrimaryKey(marketId);
         marketInfo.setStatus("0");
         marketInfo.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = marketInfoMapper.updateByPrimaryKey(marketInfo);
         if (i == 1) {
-            return MarketInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         } else {
-            return MarketInfoEnum.MARKET_DELETE_ERROR.name;
+            return ExceptionsEnum.MARKET_DELETE_ERROR.name;
         }
     }
 

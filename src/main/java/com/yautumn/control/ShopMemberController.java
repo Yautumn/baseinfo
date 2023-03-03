@@ -2,7 +2,7 @@ package com.yautumn.control;
 
 import com.yautumn.common.entity.shop.ShopMemberInfo;
 import com.yautumn.common.utils.ResultUtil;
-import com.yautumn.param.response.ShopMemberEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.shop.ShopMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +35,7 @@ public class ShopMemberController {
     public ResultUtil findById(@RequestBody int id){
         ShopMemberInfo shopMemberInfo = shopMemberService.findMemberById(id);
         if (null == shopMemberInfo){
-            return ResultUtil.success(ShopMemberEnum.MEMBER_IS_NOT_EXIST.name);
+            return ResultUtil.success(ExceptionsEnum.MEMBER_IS_NOT_EXIST.name);
         }
         return ResultUtil.success(shopMemberInfo);
     }
@@ -52,7 +52,7 @@ public class ShopMemberController {
     public ResultUtil findByShopId(@RequestBody int shopId){
         List<ShopMemberInfo> members = shopMemberService.findMemberByShopId(shopId);
         if (members.isEmpty()){
-            return ResultUtil.success(ShopMemberEnum.MEMBER_IS_NOT_EXIST.name);
+            return ResultUtil.success(ExceptionsEnum.MEMBER_IS_NOT_EXIST.name);
         }
         return ResultUtil.success(members);
     }

@@ -23,19 +23,19 @@
     select 
     <include refid="Base_Column_List" />
     from shop_factory_information
-    where id = #{id,jdbcType=INTEGER}
+    where status = 1 and  id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from shop_factory_information
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopFactoryInfo">
-    insert into shop_factory_information (id, shop_id, factory_name, 
+    insert into shop_factory_information (shop_id, factory_name,
       factory_addr, factory_phone1, factory_phone2, 
       factory_mobile1, factory_mobile2, status, 
       createtime, updatetime, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{factoryName,jdbcType=VARCHAR},
+    values (#{shopId,jdbcType=INTEGER}, #{factoryName,jdbcType=VARCHAR},
       #{factoryAddr,jdbcType=VARCHAR}, #{factoryPhone1,jdbcType=VARCHAR}, #{factoryPhone2,jdbcType=VARCHAR}, 
       #{factoryMobile1,jdbcType=VARCHAR}, #{factoryMobile2,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
@@ -174,4 +174,22 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByPage" resultMap="BaseResultMap" resultType="com.yautumn.common.entity.shop.ShopFactoryInfo">
+    select
+        <include refid="Base_Column_List" />
+    from
+      shop_factory_information
+    where
+        status = 1
+    limit #{start},#{end}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select
+      count(1)
+    from
+      shop_factory_information
+    where
+      state = 1
+      and shop_id = #{shopId}
+  </select>
 </mapper>

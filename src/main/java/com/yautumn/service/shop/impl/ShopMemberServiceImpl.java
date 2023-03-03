@@ -4,7 +4,7 @@ import com.yautumn.common.entity.shop.ShopMemberInfo;
 import com.yautumn.common.utils.DateUtils;
 import com.yautumn.dao.shop.ShopMemberInfoMapper;
 import com.yautumn.param.request.shop.ShopMemberParam;
-import com.yautumn.param.response.ShopMemberEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.shop.ShopMemberService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class ShopMemberServiceImpl implements ShopMemberService {
     public String save(ShopMemberParam shopMemberParam) {
         int count = this.countMember(shopMemberParam.getShopId());
         if (count >= shopMemerMax){
-            return ShopMemberEnum.MEMBER_IS_MAX.name;
+            return ExceptionsEnum.MEMBER_IS_MAX.name;
         }
         List<ShopMemberInfo> members = this.findMemberByShopId(shopMemberParam.getShopId());
         ShopMemberInfo shopMemberInfo = new ShopMemberInfo();
@@ -34,15 +34,15 @@ public class ShopMemberServiceImpl implements ShopMemberService {
         if (members.isEmpty()){
             shopMemberInfo.setAssistantType("01");
         }else if("01".equals(shopMemberParam.getAssistantType())){
-            return ShopMemberEnum.MEMBER_ADMIN_IS_ONLY_ONE.name;
+            return ExceptionsEnum.MEMBER_ADMIN_IS_ONLY_ONE.name;
         }
         shopMemberInfo.setStatus("1");
         shopMemberInfo.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopMemberInfoMapper.insert(shopMemberInfo);
         if (i == 1){
-            return ShopMemberEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopMemberEnum.MEMBER_INSERT_ERROR.name;
+            return ExceptionsEnum.MEMBER_INSERT_ERROR.name;
         }
     }
 
@@ -60,14 +60,14 @@ public class ShopMemberServiceImpl implements ShopMemberService {
     public String deleteMemberById(int id) {
         ShopMemberInfo shopMemberInfo = this.findMemberById(id);
         if (null == shopMemberInfo){
-            return ShopMemberEnum.MEMBER_IS_NOT_EXIST.name;
+            return ExceptionsEnum.MEMBER_IS_NOT_EXIST.name;
         }
         shopMemberInfo.setStatus("0");
         int i = shopMemberInfoMapper.updateByPrimaryKey(shopMemberInfo);
         if (i == 1) {
-            return ShopMemberEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         } else {
-            return ShopMemberEnum.MEMBER_DELETE_ERROR.name;
+            return ExceptionsEnum.MEMBER_DELETE_ERROR.name;
         }
     }
 

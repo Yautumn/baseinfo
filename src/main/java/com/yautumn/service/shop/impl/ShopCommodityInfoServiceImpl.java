@@ -7,7 +7,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.dao.shop.ShopCommodityInformationMapper;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.shop.ShopCommodityParam;
-import com.yautumn.param.response.ShopCommodityInfoEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.shop.ShopCommodityInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         shopCommodityInformation.setCreatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.insert(shopCommodityInformation);
         if (i == 1){
-            return ShopCommodityInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopCommodityInfoEnum.SHOP_INSERT_ERROR.name;
+            return ExceptionsEnum.SHOP_INSERT_ERROR.name;
         }
     }
 
@@ -57,9 +57,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         }
         int i = shopCommodityInformationMapper.deleteByPrimaryKey(shopCommodityId);
         if (i == 1) {
-            return ShopCommodityInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         } else {
-            return ShopCommodityInfoEnum.SHOP_DELETE_ERROR.name;
+            return ExceptionsEnum.SHOP_DELETE_ERROR.name;
         }
     }
 
@@ -71,16 +71,16 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
     @Override
     public String updateCommdityByID(ShopCommodityParam shopCommodityParam) {
         if(this.isNull(shopCommodityParam.getId())){
-            return ShopCommodityInfoEnum.SHOP_IS_NOT_EXIST.name;
+            return ExceptionsEnum.SHOP_IS_NOT_EXIST.name;
         }
         ShopCommodityInformation shopCommodityInformation = this.findShopCommodityByID(shopCommodityParam.getId());
         BeanUtils.copyProperties(shopCommodityParam,shopCommodityInformation);
         shopCommodityInformation.setUpdatetime(DateUtils.dateTimeToString(new Date()));
         int i = shopCommodityInformationMapper.updateByPrimaryKey(shopCommodityInformation);
         if (i == 1){
-            return ShopCommodityInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopCommodityInfoEnum.SHOP_UPDATE_ERROR.name;
+            return ExceptionsEnum.SHOP_UPDATE_ERROR.name;
         }
     }
 
@@ -130,9 +130,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         });
         int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.insert(item));
         if (i == 1){
-            return ShopCommodityInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopCommodityInfoEnum.SHOP_BATCH_INSERT_ERROR.name;
+            return ExceptionsEnum.SHOP_BATCH_INSERT_ERROR.name;
         }
     }
 
@@ -148,9 +148,9 @@ public class ShopCommodityInfoServiceImpl implements ShopCommodityInfoService {
         });
         int i = batchUtils.batchUpdateOrInsert(shopCommodityInformations,ShopCommodityInformationMapper.class,(item,hopCommodityInformationMapper)->shopCommodityInformationMapper.updateByPrimaryKey(item));
         if (i == 1){
-            return ShopCommodityInfoEnum.SUCCESS.name;
+            return ExceptionsEnum.SUCCESS.name;
         }else {
-            return ShopCommodityInfoEnum.SHOP_BATCH_UPDATE_ERROR.name;
+            return ExceptionsEnum.SHOP_BATCH_UPDATE_ERROR.name;
         }
     }
 

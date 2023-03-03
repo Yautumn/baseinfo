@@ -27,11 +27,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yautumn.common.entity.shop.ShopAgentInfo">
-    insert into shop_agent_information (id, agent_name, agent_phone, 
+    insert into shop_agent_information (agent_name, agent_phone,
       agent_mobile, agent_city, agent_addr, 
       agent_logistics, status, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{agentName,jdbcType=VARCHAR}, #{agentPhone,jdbcType=VARCHAR},
+    values (#{agentName,jdbcType=VARCHAR}, #{agentPhone,jdbcType=VARCHAR},
       #{agentMobile,jdbcType=VARCHAR}, #{agentCity,jdbcType=VARCHAR}, #{agentAddr,jdbcType=VARCHAR}, 
       #{agentLogistics,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )

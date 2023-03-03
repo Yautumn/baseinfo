@@ -5,7 +5,7 @@ import com.yautumn.common.utils.PageBeanUtil;
 import com.yautumn.common.utils.ResultUtil;
 import com.yautumn.param.request.common.PageParam;
 import com.yautumn.param.request.market.MarketParam;
-import com.yautumn.param.response.MarketInfoEnum;
+import com.yautumn.param.response.ExceptionsEnum;
 import com.yautumn.service.market.MarketInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,7 +47,7 @@ public class MarketInfoController {
     public ResultUtil findById(@RequestParam @ApiParam(value = "市场id" , defaultValue = "1") Integer marketId){
         MarketInfo marketInfo = marketInfoService.findById(marketId);
         if(null == marketInfo){
-            return ResultUtil.success(MarketInfoEnum.MARKET_IS_NOT_EXIST.name);
+            return ResultUtil.success(ExceptionsEnum.MARKET_IS_NOT_EXIST.name);
         }
         return ResultUtil.success(marketInfo);
     }
@@ -57,7 +57,7 @@ public class MarketInfoController {
     public ResultUtil findAll(@RequestBody PageParam pageParam){
         PageBeanUtil<MarketInfo> marketInfos = marketInfoService.findMarketAll(pageParam);
         if (marketInfos.getList().isEmpty()){
-            ResultUtil.success(MarketInfoEnum.MARKET_IS_NOT_EXIST.name);
+            ResultUtil.success(ExceptionsEnum.MARKET_IS_NOT_EXIST.name);
         }
         return ResultUtil.success(marketInfos);
     }
