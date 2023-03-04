@@ -6,6 +6,10 @@ import lombok.Data;
 public class ShopCargoGoodsInfo {
     private int id;
 
+    private int shopId;
+
+    private String productBrand;
+
     private String cargoGoodsName;
 
     private String cargoGoodsType;

@@ -6,6 +6,8 @@ import lombok.Data;
 public class ShopAgentInfo {
     private int id;
 
+    private int shopId;
+
     private String agentName;
 
     private String agentPhone;
@@ -19,6 +21,10 @@ public class ShopAgentInfo {
     private String agentLogistics;
 
     private String status;
+
+    private String createtime;
+
+    private String updatetime;
 
     private String remark;
 

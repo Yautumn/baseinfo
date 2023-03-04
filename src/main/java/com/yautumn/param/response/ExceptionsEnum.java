@@ -44,7 +44,43 @@ public enum ExceptionsEnum {
 
     MEMBER_INSERT_ERROR("商户成员信息插入失败"),
 
-    MEMBER_DELETE_ERROR("商户成员删除失败");
+    MEMBER_DELETE_ERROR("商户成员删除失败"),
+
+    SHOP_CARGO_IS_NOT_EXIST("调货供应商信息不存在"),
+
+    SHOP_CARGO_INSERT_ERROR("调货供应商信息插入失败"),
+
+    SHOP_CARGO_UPDATE_ERROR("调货供应商信息更新失败"),
+
+    SHOP_CARGO_DELETE_ERROR("调货供应商删除失败"),
+
+    SHOP_AGENT_IS_NOT_EXIST("销售商信息不存在"),
+
+    SHOP_AGENT_INSERT_ERROR("销售商信息插入失败"),
+
+    SHOP_AGENT_UPDATE_ERROR("销售商信息更新失败"),
+
+    SHOP_AGENT_DELETE_ERROR("销售商删除失败"),
+
+    SHOP_CARGO_AGENT_IS_NOT_EXIST("调货销售商信息不存在"),
+
+    SHOP_CARGO_AGENT_INSERT_ERROR("调货销售商信息插入失败"),
+
+    SHOP_CARGO_AGENT_UPDATE_ERROR("调货销售商信息更新失败"),
+
+    SHOP_CARGO_AGENT_DELETE_ERROR("调货销售商删除失败"),
+
+    SHOP_CARGO_GOODS_IS_NOT_EXIST("商品信息不存在"),
+
+    SHOP_CARGO_GOODS_INSERT_ERROR("商品信息插入失败"),
+
+    SHOP_CARGO_GOODS_UPDATE_ERROR("商品信息更新失败"),
+
+    SHOP_CARGO_GOODS_BATCH_INSERT_ERROR("商品信息批量插入失败"),
+
+    SHOP_CARGO_GOODS_BATCH_UPDATE_ERROR("商品信息批量更新失败"),
+
+    SHOP_CARGO_GOODS_DELETE_ERROR("商品删除失败");
 
     public final String name;
 }

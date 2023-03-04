@@ -21,7 +21,7 @@
     select 
     <include refid="Base_Column_List" />
     from shop_cargo_provider_information
-    where id = #{id,jdbcType=INTEGER}
+    where status = 1 and id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from shop_cargo_provider_information
@@ -150,4 +150,15 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findByShopId" resultType="com.yautumn.common.entity.shop.ShopCargoProviderInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from shop_cargo_provider_information
+    where status = 1 and shop_id = #{shopId}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(1)
+    from shop_cargo_provider_information
+    where status = 1 and shop_id = #{shopId}
+  </select>
 </mapper>

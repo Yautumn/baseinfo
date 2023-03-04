@@ -10,6 +10,8 @@ public class ShopCargoAgentInfo {
 
     private String agentName;
 
+    private String agentMobile;
+
     private String houseNumber;
 
     private String marketId;
