@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yautumn</groupId>
-    <artifactId>base_information</artifactId>
+    <artifactId>carefree_base_info</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>base_information</name>
+    <name>carefree_base_info</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
